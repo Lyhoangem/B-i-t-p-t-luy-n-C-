@@ -8,11 +8,18 @@ int main(){
 	getline(cin,s);
 	string find;
 	getline(cin,find);
-	int dem=0;
-	for(int i=0;i<s.size();i++){
-		if(find[i]==s[i]){
-			dem++;
+	
+		int dem=0;
+		vector<string> v;
+		string res;
+		stringstream ss(s);
+		while(ss>>res){
+			v.push_back(res);
 		}
-	}
-	cout<<dem;
+		for(int i=0;i<v.size();i++){
+		 if(v[i].find(find)!=string::npos) dem++;
+		}
+		cout<<dem;
+	
+
 }
