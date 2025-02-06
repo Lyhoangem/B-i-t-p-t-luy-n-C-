@@ -2,35 +2,25 @@
 #include <sstream>
 #include <vector>
 #include <set>
+#include<algorithm>
 using namespace std;
 
 int main() {
     vector<int> v;
-    string s;
-    //nhap mang 
-    while (true) {
-        getline(cin, s);
-        if (s.empty()) break;
+    int n;
+    while(cin>>n){
+    	v.push_back(n);
+	}
+    
+ set<int> v1;
+ for(int i=0; i<v.size(); i++){
+    v1.insert(v[i]);
+ }
+  if(v1.size()<3) cout<<"-";
 
-        stringstream ss(s);
-        int number;
-        while (ss >> number) {
-            v.push_back(number);
-        }
-    }
-    //tim so khac nhau
-    set<int> sokhac(v.begin(), v.end());
-    if (sokhac.size() < 3) {
-        cout << "-";
-    } 
-	
-	else {
-        vector<int> v(sokhac.begin(), sokhac.end());
+  set<int>:: iterator it = v1.begin();
+  
+  advance(it,2); 
+  cout<<*it;
 
-        // tim so nho thu 3
-        cout << v[2];
-    }
-
-    return 0;
 }
-
