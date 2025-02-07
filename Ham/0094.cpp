@@ -1,118 +1,52 @@
-#include<iostream>
+#include <iostream>
 #include<cmath>
+#include <vector>
 using namespace std;
-
-int UCLN(int s1,int s2){
-	if(s2==0) return s1;
-	return UCLN(s2, s1%s2);
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
 }
-
-void DinhDangPhanSo(int Tu, int Mau){
-	
-	int SoNguyen = Tu/Mau;
-	 if(Tu%Mau == 0) cout<<Tu/Mau;
-
-	 else {
-		if(SoNguyen > 0){
-			Tu = Tu - SoNguyen*Mau;
-
-			int SoToiGian = UCLN(Tu,Mau);
-			Tu/=SoToiGian;
-			Mau/=SoToiGian;
-			
-			if(Tu>0 && Mau<0){
-				Tu*=-1;
-				Mau*=-1;
-			}
-			else if(Tu<0 && Mau<0){
-				Tu*=-1;
-				Mau*=-1;
-			}
-			
-			cout<<SoNguyen<<","<<Tu<<"/"<<Mau;
-		}
-
-		else if(SoNguyen < 0){
-			
-			int SoToiGian = UCLN(Tu,Mau);
-			Tu/=SoToiGian;
-			Mau/=SoToiGian;
-            
-            if(Tu>0 && Mau<0){
-				Tu*=-1;
-				Mau*=-1;
-			}
-			else if(Tu<0 && Mau<0){
-				Tu*=-1;
-				Mau*=-1;
-			}
-
-			cout<<Tu<<"/"<<Mau;
-
-		}
-
-		else {
-			
-			int SoToiGian = UCLN(Tu, Mau); 
-            Tu /= SoToiGian;
-            Mau /= SoToiGian;
-            
-            if(Tu>0 && Mau<0){
-				Tu*=-1;
-				Mau*=-1;
-			}
-			else if(Tu<0 && Mau<0){
-				Tu*=-1;
-				Mau*=-1;
-			}
-            cout << Tu << "/" <<Mau;
-		}
-	 }
-
-	
+void simplify(int& ts, int& ms) {
+    int divisor = gcd(ts, ms);
+    ts /= divisor;
+    ms /= divisor;
+    if (ms < 0) {
+        ts *= -1;
+        ms *= -1;
+    }
 }
-
-void TinhTong(int a, int b, int c, int d){
-	int Tu = a*d + b*c;
-	int Mau = b*d;
-	
-	DinhDangPhanSo(Tu,Mau);
+void output(int ts, int ms) {
+    simplify(ts, ms);
+    if (abs(ts) > ms) {
+        cout << ts / ms << "," << ts % ms << "/" << ms;
+    }
+    else cout << ts << "/" << ms;
+    cout << endl;
 }
-
-void TinhHieu(int a, int b, int c, int d){
-	
-	int Tu = a*d - b*c;
-	int Mau = b*d;
-	
-	DinhDangPhanSo(Tu,Mau);
+void add(int t1, int m1, int t2, int m2) {
+    int ts = t1 * m2 + t2 * m1;
+    int ms = m1 * m2;
+    output(ts, ms);
 }
-
-void TinhTich(int a, int b, int c, int d){
-	
-	int Tu = a*c;
-	int Mau = b*d;
-	
-	DinhDangPhanSo(Tu,Mau);
+void subtract(int t1, int m1, int t2, int m2) {
+    int ts = t1 * m2 - t2 * m1;
+    int ms = m1 * m2;
+    output(ts, ms);
 }
-
-void TinhThuong(int a, int b, int c, int d){
-	
-	int Tu = a*d;
-	int Mau = b*c;
-	
-	DinhDangPhanSo(Tu,Mau);
+void divide(int t1, int m1, int t2, int m2) {
+    int ts = t1 * m2;
+    int ms = m1 * t2;
+    output(ts, ms);
 }
-
-int main(){
-	int a,b,c,d;
-	cin>>a>>b;
-    cin>>c>>d;
-    TinhTong(a,b,c,d);
-	cout<<endl;
-    TinhHieu(a,b,c,d);
-    cout<<endl;
-    TinhTich(a,b,c,d);
-    cout<<endl;
-    TinhThuong(a,b,c,d);
+void multiply(int t1, int m1, int t2, int m2) {
+    int ts = t1 * t2;
+    int ms = m1 * m2;
+    output(ts, ms);
 }
-
+int main() {
+    int a, b, c, d; cin >> a >> b >> c >> d;
+    add(a, b, c, d);
+    subtract(a, b, c, d);
+    multiply(a, b, c, d);
+    divide(a, b, c, d);
+}

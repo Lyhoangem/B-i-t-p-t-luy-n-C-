@@ -20,6 +20,5 @@ int main(){
 		 if(v[i].find(find)!=string::npos) dem++;
 		}
 		cout<<dem;
-	
 
 }
